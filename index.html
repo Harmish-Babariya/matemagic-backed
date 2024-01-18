@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+</head>
+
+<body>
+    <!-- Sign in with Google button -->
+    <button id="btn">Sign in with Google</button>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+        import { GoogleAuthProvider, signInWithPopup, getAuth, FacebookAuthProvider } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+
+        // Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAP5stOMeGtLE2dPlSkUnRzxXapGjQcrZw",
+            authDomain: "mate-megic.firebaseapp.com",
+            projectId: "mate-megic",
+            storageBucket: "mate-megic.appspot.com",
+            messagingSenderId: "63174313817",
+            appId: "1:63174313817:web:7ff3b25ea03a9bd6f1ae48",
+            measurementId: "G-9SQ52LBCL9"
+        };
+
+        initializeApp(firebaseConfig);
+
+        // Google authentication
+        const googleAuthProvider = new GoogleAuthProvider();
+
+        const signInWithGoogle = () => {
+            const auth = getAuth();
+            signInWithPopup(auth, googleAuthProvider)
+                .then((result) => {
+                    console.log(result);
+                    // Successfully authenticated with Google
+                    const user = result.user;
+                    const authToken = result.user.accessToken;
+                    console.log(authToken);
+                })
+                .catch((error) => {
+                    // Error occurred during Google authentication
+                    console.error(error);
+                });
+        }
+        $("#btn").on("click", signInWithGoogle);
+    </script>
+</body>
+
+</html>
